@@ -1,2 +1,5 @@
-# Project exclude paths
-/out/
+#Intellij Project files
+.idea
+
+#Ignore the file created if doesnt exist
+log.csv
