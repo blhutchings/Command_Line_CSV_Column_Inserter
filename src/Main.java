@@ -1,3 +1,12 @@
+/*
+ * Author: Ben Hutchings
+ * Date: 2020-01-27
+ *
+ * Created for the purpose of keeping track of how many pushups, situps and crunchs I can do daily :).
+ * I just didn't want to manually insert the date
+ * Started Jan 1st 2021, currently on day 27 woo!
+ */
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +27,7 @@ public class Main {
             "<file> \n" +
             "Example: java -jar <jar file> /home/<user>/documents/log.csv";
 
-    
+
     public static void main(String[] args){
 
         File file;
