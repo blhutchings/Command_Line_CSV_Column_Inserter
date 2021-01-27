@@ -5,51 +5,47 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
-    public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public static final String DEFAULT_FILE_NAME = "log.csv";
-    public static final String DELIMITER = ","; //Delimiter of the column reader
     private static final Scanner STDIO = new Scanner(System.in);
-    private static final StringBuilder newLine = new StringBuilder("\n"); //String that will be added to new row
 
-    public static final String USES_HELP = "Usage: java -jar <jarfile> [args..]\n";
-    public static final String ARGS_HELP = "Arguments following the the -jar <jarfile>, \n If left blank, Current directory and " + DEFAULT_FILE_NAME + "will be used.\n" +
-            "-p <directory of csv> <name>\n" +
-            "-d <name> \n";
-
-    private static final String DATE_ALIAS = "date";
+    public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final String DELIMITER = ","; //Delimiter of the column reader
 
 
+    public static String FILE_NAME;
 
+    public static final String USES_HELP = "Usage: java -jar <jar file> [args..]\n";
+    public static final String ARGS_HELP = "Arguments following the the -jar <jar file>" +
+            "<file> \n" +
+            "Example: java -jar <jar file> /home/<user>/documents/log.csv";
+
+    
     public static void main(String[] args){
-        File file = new File(DEFAULT_FILE_NAME);
 
-            try {
-                if (file.createNewFile()) {
-                    System.out.println("Created new default file called:" + DEFAULT_FILE_NAME);
-                }
-            } catch (IOException e) {
-                System.out.println("Could not create file: " + DEFAULT_FILE_NAME);
-            }
-
-        //TODO add arguments
-        /*
-        if (args.length == 0) {
-            file = new File(DEFAULT_FILE_NAME);
-        } else if (args.length == 1) {
-            file = new File(args[0]);
+        File file;
+        if (args.length == 1) {
+            FILE_NAME = args[0];
+            file = new File(FILE_NAME);
         } else {
-            System.err.println("To many arguments!");
+            System.err.println("Invalid arguments!");
             System.out.println(USES_HELP + ARGS_HELP);
             return;
         }
 
-         */
+
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("Created new  file called: " + FILE_NAME);
+                }
+            } catch (IOException e) {
+                System.out.println("Could not create file: " + FILE_NAME);
+            }
+
 
         //Open Scanner to read heading columns
         try (Scanner headerReader = new Scanner(new FileReader(file));
              BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, true)))
         {
-
+            StringBuilder newLine = new StringBuilder("\n"); //String that will be added to new row
             String headerString = headerReader.nextLine().trim();
             String[] columnRow = headerString.split(DELIMITER);
 
@@ -59,6 +55,7 @@ public class Main {
             /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                                                                         INSERT NEW CASE ALIAS HERE
             *///~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                final String DATE_ALIAS = "date";
 
                 switch (columnRow[column]) {
 
